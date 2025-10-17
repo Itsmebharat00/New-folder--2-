@@ -4,35 +4,39 @@ import React, { useState } from "react";
 
 const AddHotelsForm = () => {
   const [formData, setFormData] = useState({
-    name: String,
-    category: String,
-    location: String,
-    rating: String,
-    reviews: String,
-    website: String,
-    phoneNumber: String,
-    checkInTime: String,
-    checkOutTime: String,
-    amenities: String,
-    priceRange: Number,
-    reservationsNeeded: Boolean,
-    isParkingAvailable: Boolean,
-    isWifiAvailable: Boolean,
-    isPoolAvailable: Boolean,
-    isSpaAvailable: Boolean,
-    isRestaurantAvailable: Boolean,
-    photos: String,
+    name: "",
+    category: "",
+    location: "",
+    rating: 0,
+    reviews: "",
+    website: "",
+    phoneNumber: "",
+    checkInTime: "",
+    checkOutTime: "",
+    amenities: "",
+    priceRange: "",
+    reservationsNeeded: false,
+    isParkingAvailable: false,
+    isWifiAvailable: false,
+    isPoolAvailable: false,
+    isSpaAvailable: false,
+    isRestaurantAvailable: false,
+    photos: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+
     setFormData((prevState) => ({
       ...prevState,
       [name]:
-        name === "priceRange" || name === "rating" ? parseInt(value) : value,
+        type === "checkbox"
+          ? checked
+          : name === "priceRange" || name === "rating"
+          ? value
+          : value,
     }));
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Hotel Data Submitted:", formData);
